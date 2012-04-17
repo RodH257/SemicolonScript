@@ -1,4 +1,2 @@
- SemicolonScript is made up purely of newlines, spaces and of course semicolons.
-Each set of space-separated semicolons represents the  ASCII code or the character you wish to enter. While you are getting used
-to this revolutionary syntax, try entering Javascript first see what the SemicolonScript
-output looks like. It's less verbose than Java!
+SemicolonScript is made up purely of newlines, spaces and of course semicolons. Each set of space-separated semicolons represents the  ASCII code or the character you wish to enter. 
+While you are getting used to this revolutionary syntax, try entering Javascript first see what the SemicolonScript output looks like. 
