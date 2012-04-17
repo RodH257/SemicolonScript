@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>SemicolonScript</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#toJs").click(scs.toJavascript);
+            $("#toSc").click(scs.toSemicolons);
+        });
+
+        var scs = {
+            toJavascript: function () {
+                var input = $("#scScript").val();
+                var output = [];
+
+                var colonCount = 0;
+                var endColonBlock = function () {
+                    if (colonCount > 0) {
+                        output.push(String.fromCharCode(colonCount));
+                    }
+                    colonCount = 0;
+                }
+
+                var previousChar = '';
+                for (var index = 0; index < input.length; index++) {
+                    var character = input.charAt(index);
+
+                    if (character == ' ') {
+                        if (previousChar == ' ' || index == 0 || previousChar == '\n') {
+                            output.push(' ');
+                        }
+                        endColonBlock();
+                    } else if (character == '\n') {
+                        output.push('\n');
+                        endColonBlock();
+                    } else if (character != ';') {
+                        alert("Syntax error");
+                        return;
+                    } else {
+                        colonCount++;
+                    }
+
+                    previousChar = character;
+                }
+                endColonBlock();
+
+                $("#jScript").val(output.join(""));
+            },
+
+            toSemicolons: function () {
+                var input = $("#jScript").val();
+                var output = [];
+
+                for (var index = 0; index < input.length; index++) {
+                    var character = input.charAt(index);
+                    if (character == ' ') {
+                        output.push(' ');
+                    } else if (character == '\n') {
+                        output.push('\n');
+                    } else {
+                        for (var i = 0; i < character.charCodeAt(0) ; i++) {
+                            output.push(';');
+                        }
+                        output.push(' ');
+                    }
+
+                }
+
+                $("#scScript").val(output.join(""));
+            }
+
+        };
+    </script>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-unit">
+            <h1>SemicolonScript;</h1>
+            <p>A <em>"programming language"</em>made up entirely of semicolons</p>
+        </div>
+        <h2>Enter SemicolonScript Code</h2>
+        <textarea id="scScript" style="width: 930px; height: 300px;"></textarea>
+        <br />
+        <a class="btn btn-primary btn-large" id="toJs">To Javascript</a>
+        <h2 style="margin-top: 30px;">Enter Javascript Code</h2>
+        <textarea id="jScript" style="width: 930px; height: 300px;">
+            function addNumbers(firstNum, secondNum){
+                return firstNum + secondNum;
+            }
+        </textarea><br />
+        <a class="btn btn-primary btn-large" id="toSc">To Semicolons</a>
+        <div class="hero-unit" style="margin-top: 30px;">
+            <h2>How do I write SemicolonScript?</h2>
+            <p>
+                SemicolonScript is made up purely of newlines, spaces and of course semicolons.
+                Each set of space-separated semicolons represents the <a href="http://www.asciitable.com">
+                    ASCII code </a>for the character you wish to enter. While you are getting used
+                to this revolutionary syntax, try entering Javascript first see what the SemicolonScript
+                output looks like. It's less verbose than Java!
+            </p>
+        </div>
+        <div class="hero-unit">
+            <h2>What does it compile to?</h2>
+            <p>
+                SemicolonScript simply converts back to ASCII on compilation, so you can use it
+                to write anything you like, including Javascript. Web development just got a whole
+                lot simpler!
+            </p>
+        </div>
+        <div class="hero-unit">
+            <h2>How can I use it in production code?</h2>
+            <p>
+                You should definately set about converting all of your code to SemicolonScript immediately.
+                Unfortunately the conversion only occurs in quickly hacked together clientside javascript
+                code running on this page, but don't let that hold you back! You can get the source
+                on Github.
+            </p>
+        </div>
+        SemicolonScript was created by <a href="http://twitter.com/Rodh257">Rod Howarth (@RodH257)
+        </a>with tongue firmly planted in cheek.
+    </div>
+</body>
+</html>
